@@ -1,1 +1,5 @@
 .vscode
+.venv
+.ruby-version
+*.pyc
+Pipfile.lock
