@@ -1,12 +1,13 @@
 from string import ascii_letters
-from utils.py_utils.constants import INPUT, NEW_LINE
-from utils.py_utils.decorators import split_data
+from utils.py_utils.constants import INPUT
+from utils.py_utils.decorators import strip_newlines, to_list
 
 
-@split_data(NEW_LINE)
+@to_list()
+@strip_newlines()
 def get_data(variation):
     with open(f"inputs/03_{variation}.txt") as f:
-        data = f.read()
+        data = f.readlines()
     return data
 
 
@@ -33,6 +34,6 @@ def hard(data):
 
 
 if __name__ == "__main__":
-    data = list(get_data(INPUT))
+    data = get_data(INPUT)
     print(easy(data))
     print(hard(data))

@@ -1,12 +1,13 @@
-from utils.py_utils.constants import INPUT, NEW_LINE, SPACE
-from utils.py_utils.decorators import split_data, split_elements_by
+from utils.py_utils.constants import INPUT
+from utils.py_utils.decorators import strip_newlines, split_lines_by, to_list
 
 
-@split_elements_by(SPACE)
-@split_data(NEW_LINE)
+@to_list()
+@split_lines_by(" ")
+@strip_newlines()
 def get_data(variation):
     with open(f"inputs/02_{variation}.txt") as f:
-        data = f.read()
+        data = f.readlines()
     return data
 
 
@@ -43,6 +44,6 @@ def hard(data):
 
 
 if __name__ == "__main__":
-    data = list(get_data(INPUT))
+    data = get_data(INPUT)
     print(easy(data))
     print(hard(data))

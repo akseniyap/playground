@@ -1,31 +1,27 @@
-from utils.py_utils.constants import INPUT, NEW_LINE
-from utils.py_utils.decorators import split_data, split_elements_by, to_ints
+from utils.py_utils.constants import INPUT
+from utils.py_utils.decorators import strip_newlines, to_ints, group_elements, sum_elements, to_list
 
 
+@to_list()
+@sum_elements()
+@group_elements()
 @to_ints()
-@split_elements_by(NEW_LINE)
-@split_data(2*NEW_LINE)
+@strip_newlines()
 def get_data(variation):
     with open(f"inputs/01_{variation}.txt") as f:
-        data = f.read()
+        data = f.readlines()
     return data
 
 
-def modify(data):
-    return map(sum, data)
-
-
 def easy(data):
-    sums = modify(data)
-    return max(sums)
+    return max(data)
 
 
 def hard(data):
-    sums = modify(data)
-    return sum(sorted(sums)[-3:])
+    return sum(sorted(data)[-3:])
 
 
 if __name__ == "__main__":
-    data = list(get_data(INPUT))
+    data = get_data(INPUT)
     print(easy(data))
     print(hard(data))
