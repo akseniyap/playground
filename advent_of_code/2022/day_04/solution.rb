@@ -1,3 +1,4 @@
+require_relative "elf"
 require_relative "../utils/ruby_utils/constants"
 
 
@@ -7,22 +8,22 @@ end
 
 def modify(data)
   data.map { |line| line.split(",") }
+      .map do |first, second|
+        [
+          Elf.new(*first.split("-").map(&:to_i)),
+          Elf.new(*second.split("-").map(&:to_i))
+        ]
+      end
 end
 
 def get_data(variation)
   modify(raw_data(variation))
 end
 
-CONTAINES = -> (a, b, c, d) { (a <= c and b >= d) or (c <= a and d >= b) }
-OVERLAPS = -> (a, b, c, d) { a.between?(c, d) or c.between?(a, b) }
-
 def easy(data)
   count = 0
   for first_elf, second_elf in data
-    a, b = first_elf.split("-").map(&:to_i)
-    c, d = second_elf.split("-").map(&:to_i)
-
-    if CONTAINES.call(a, b, c, d)
+    if first_elf.contains?(second_elf) or second_elf.contains?(first_elf)
       count += 1
     end
   end
@@ -33,10 +34,7 @@ end
 def hard(data)
   count = 0
   for first_elf, second_elf in data
-    a, b = first_elf.split("-").map(&:to_i)
-    c, d = second_elf.split("-").map(&:to_i)
-
-    if OVERLAPS.call(a, b, c, d)
+    if first_elf.overlaps?(second_elf) or second_elf.overlaps?(first_elf)
       count += 1
     end
   end

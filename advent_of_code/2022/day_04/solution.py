@@ -1,3 +1,4 @@
+from elf import Elf
 from utils.py_utils.constants import INPUT
 from utils.py_utils.decorators import strip_newlines, split_lines_by, to_list
 
@@ -11,17 +12,21 @@ def get_data(variation):
     return data
 
 
-containes = lambda a, b, c, d: (a <= c and b >= d) or (c <= a and d >= b)
-overlaps = lambda a, b, c, d: (c <= a <= d) or (a <= c <= b)
+def modify(data):
+    elves = []
+    for first, second in data:
+        first_elf = Elf(*map(int, first.split("-")))
+        second_elf = Elf(*map(int, second.split("-")))
+        elves.append([first_elf, second_elf])
+
+    return elves
 
 
 def easy(data):
     count = 0
-    for first_elf, second_elf in data:
-        a, b = map(int, first_elf.split("-"))
-        c, d = map(int, second_elf.split("-"))
-
-        if containes(a, b, c, d):
+    elves = modify(data)
+    for first_elf, second_elf in elves:
+        if first_elf.contains(second_elf) or second_elf.contains(first_elf):
             count += 1
 
     return count
@@ -29,11 +34,9 @@ def easy(data):
 
 def hard(data):
     count = 0
-    for first_elf, second_elf in data:
-        a, b = map(int, first_elf.split("-"))
-        c, d = map(int, second_elf.split("-"))
-
-        if overlaps(a, b, c, d):
+    elves = modify(data)
+    for first_elf, second_elf in elves:
+        if first_elf.overlaps(second_elf) or second_elf.overlaps(first_elf):
             count += 1
 
     return count
