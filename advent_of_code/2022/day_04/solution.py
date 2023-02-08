@@ -4,7 +4,7 @@ from utils.py_utils.decorators import strip_newlines, split_lines_by, to_list
 
 
 @to_list()
-@split_lines_by(",")
+@split_lines_by("[,-]")
 @strip_newlines()
 def get_data(variation):
     with open(f"inputs/04_{variation}.txt") as f:
@@ -14,9 +14,9 @@ def get_data(variation):
 
 def modify(data):
     elves = []
-    for first, second in data:
-        first_elf = Elf(*map(int, first.split("-")))
-        second_elf = Elf(*map(int, second.split("-")))
+    for first_start, first_end, second_start, second_end in data:
+        first_elf = Elf(int(first_start), int(first_end))
+        second_elf = Elf(int(second_start), int(second_end))
         elves.append([first_elf, second_elf])
 
     return elves

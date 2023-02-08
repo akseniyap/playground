@@ -1,5 +1,6 @@
-from .constants import NEW_LINE
+import re
 from itertools import groupby
+from .constants import NEW_LINE
 
 
 def strip_newlines():
@@ -53,6 +54,6 @@ def split_lines_by(separator):
     def decorated(f):
         def inner(variation):
             data = f(variation)
-            return map(lambda line: line.split(separator), data)
+            return map(lambda line: re.split(separator, line), data)
         return inner
     return decorated

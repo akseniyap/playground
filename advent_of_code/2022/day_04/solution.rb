@@ -7,13 +7,10 @@ def raw_data(variation)
 end
 
 def modify(data)
-  data.map { |line| line.split(",") }
-      .map do |first, second|
-        [
-          Elf.new(*first.split("-").map(&:to_i)),
-          Elf.new(*second.split("-").map(&:to_i))
-        ]
-      end
+  data.map do |line|
+    /(\d+)-(\d+),(\d+)-(\d+)/ =~ line
+    [Elf.new($1.to_i, $2.to_i), Elf.new($3.to_i, $4.to_i)]
+  end
 end
 
 def get_data(variation)
