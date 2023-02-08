@@ -2,9 +2,9 @@ from utils.py_utils.constants import INPUT
 from utils.py_utils.decorators import strip_newlines, split_lines_by, to_list
 
 
-@to_list()
+@to_list
 @split_lines_by(" ")
-@strip_newlines()
+@strip_newlines
 def get_data(variation):
     with open(f"inputs/02_{variation}.txt") as f:
         data = f.readlines()

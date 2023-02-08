@@ -3,8 +3,8 @@ from utils.py_utils.constants import INPUT
 from utils.py_utils.decorators import strip_newlines, to_list
 
 
-@to_list()
-@strip_newlines()
+@to_list
+@strip_newlines
 def get_data(variation):
     with open(f"inputs/03_{variation}.txt") as f:
         data = f.readlines()
