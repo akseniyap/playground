@@ -2,11 +2,10 @@ require_relative "../utils/ruby_utils/constants"
 
 
 def raw_data(variation)
-  File.open("inputs/05_#{variation}.txt").read
+  File.readlines("inputs/05_#{variation}.txt",  chomp: true)
 end
 
 def modify(data)
-  data = data.split(NEW_LINE)
   separator = data.find_index("")
   levels, instructions = data[..separator-2], data[separator+1..]
   levels = levels.map { |line| line.gsub("    ", " [-] ") }

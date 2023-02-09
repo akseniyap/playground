@@ -2,12 +2,13 @@ require_relative "../utils/ruby_utils/constants"
 
 
 def raw_data(variation)
-  File.open("inputs/01_#{variation}.txt").read
+  File.readlines("inputs/01_#{variation}.txt",  chomp: true)
 end
 
 def modify(data)
-  data.split(NEW_LINE*2)
-      .map { |line| line.split.map(&:to_i).sum }
+  data.slice_when { |element| element == "" }.to_a
+      .map { |sub_list| sub_list.map(&:to_i) }
+      .map(&:sum)
 end
 
 def easy(data)

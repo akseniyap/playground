@@ -2,12 +2,11 @@ require_relative "../utils/ruby_utils/constants"
 
 
 def raw_data(variation)
-  File.open("inputs/02_#{variation}.txt").read
+  File.readlines("inputs/02_#{variation}.txt",  chomp: true)
 end
 
 def modify(data)
-  data.split(NEW_LINE)
-      .map { |line| line.split }
+  data.map { |line| line.split }
 end
 
 MOVE_SCORE = {"X" => 1, "Y" => 2, "Z" => 3}
