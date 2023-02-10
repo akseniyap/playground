@@ -23,7 +23,7 @@ def get_data(variation)
 end
 
 def build_start_state(levels)
-  stacks = Array.new(levels[-1].size+1){ [] }
+  stacks = Array.new(levels.last.size+1){ [] }
   levels.reverse.each do |level|
     level.each.with_index(1) do |crate, index|
       unless crate == "-"
@@ -53,7 +53,7 @@ def easy(data)
     end
   end
 
-  stacks.map { |stack| stack[-1] }.join
+  stacks.map { |stack| stack.last }.join
 end
 
 def hard(data)
@@ -64,7 +64,7 @@ def hard(data)
     stacks[to].push(*crates_to_move)
   end
 
-  stacks.map { |stack| stack[-1] }.join
+  stacks.map { |stack| stack.last }.join
 end
 
 if __FILE__ == $0

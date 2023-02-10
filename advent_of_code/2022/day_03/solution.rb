@@ -7,7 +7,7 @@ end
 
 LETTERS = [*('a'..'z'), *('A'..'Z')]
 
-COMMON_ITEM = -> list { list.map(&:chars).inject(:&)[0] }
+COMMON_ITEM = -> list { list.map(&:chars).inject(:&).first }
 PRIORITY = -> (el) { LETTERS.find_index(el) + 1 }
 
 def easy(data)
