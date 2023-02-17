@@ -25,6 +25,14 @@ def to_ints(f):
     return wrapper
 
 
+def split_to_digits(f):
+    def wrapper(variation):
+        data = f(variation)
+        to_digits = lambda element: list(map(int, element))
+        return map(to_digits, data)
+    return wrapper
+
+
 def group_elements(f):
     def wrapper(variation):
         data = f(variation)
